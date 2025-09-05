@@ -1,6 +1,8 @@
 const path = require("path");
 const rootDir = require("./utils/pathUtils");
 const cors = require("cors");
+require('dotenv').config();
+const env = process.env;
 
 const express = require("express");
 const {error} = require("./controllers/error");
@@ -10,7 +12,7 @@ const todoItemsRouter = require("./routes/todoitemsRouter");
 
 
 
-const DB_PATH = 'mongodb+srv://root:root26@airbnb-cluster.te04plt.mongodb.net/todo?retryWrites=true&w=majority&appName=airbnb-Cluster';
+const DB_PATH = process.env.MONGODB_URI;
 
 
 const app = express();
@@ -25,7 +27,7 @@ app.use('/api/todo', todoItemsRouter);
 
 app.use(error);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 mongoose.connect(DB_PATH).then(() => {
     console.log('Connect to mongo db');
